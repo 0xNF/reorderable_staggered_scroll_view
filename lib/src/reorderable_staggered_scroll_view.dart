@@ -22,9 +22,7 @@ class ReorderableStaggeredScrollViewListItem {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is ReorderableStaggeredScrollViewListItem &&
-        key == other.key &&
-        widget == other.widget;
+    return other is ReorderableStaggeredScrollViewListItem && key == other.key && widget == other.widget;
   }
 
   @override
@@ -32,8 +30,7 @@ class ReorderableStaggeredScrollViewListItem {
 }
 
 /// Represents an item in a grid layout within a [ReorderableStaggeredScrollView].
-abstract class ReorderableStaggeredScrollViewGridItem
-    extends ReorderableStaggeredScrollViewListItem {
+abstract class ReorderableStaggeredScrollViewGridItem extends ReorderableStaggeredScrollViewListItem {
   /// Creates a [ReorderableStaggeredScrollViewGridItem].
   ///
   /// The [key] is a required unique identifier for the item.
@@ -51,21 +48,15 @@ abstract class ReorderableStaggeredScrollViewGridItem
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is ReorderableStaggeredScrollViewGridItem &&
-        key == other.key &&
-        mainAxisSize == other.mainAxisSize &&
-        crossAxisSize == other.crossAxisSize &&
-        widget == other.widget;
+    return other is ReorderableStaggeredScrollViewGridItem && key == other.key && mainAxisSize == other.mainAxisSize && crossAxisSize == other.crossAxisSize && widget == other.widget;
   }
 
   @override
-  int get hashCode =>
-      super.hashCode ^ mainAxisSize.hashCode ^ crossAxisSize.hashCode;
+  int get hashCode => super.hashCode ^ mainAxisSize.hashCode ^ crossAxisSize.hashCode;
 }
 
 /// Represents an item in a grid layout within a [ReorderableStaggeredScrollView].
-class ReorderableStaggeredScrollViewGridCountItem
-    extends ReorderableStaggeredScrollViewGridItem {
+class ReorderableStaggeredScrollViewGridCountItem extends ReorderableStaggeredScrollViewGridItem {
   final int mainAxisCellCount;
   final int crossAxisCellCount;
 
@@ -90,8 +81,7 @@ class ReorderableStaggeredScrollViewGridCountItem
 }
 
 /// Represents an item in a grid layout within a [ReorderableStaggeredScrollView].
-class ReorderableStaggeredScrollViewGridExtentItem
-    extends ReorderableStaggeredScrollViewGridItem {
+class ReorderableStaggeredScrollViewGridExtentItem extends ReorderableStaggeredScrollViewGridItem {
   final double mainAxisExtent;
   final int crossAxisCellCount;
 
@@ -130,27 +120,22 @@ class ReorderableStaggeredScrollView extends StatefulWidget {
   final bool isLongPressDraggable;
 
   /// A function that builds the feedback widget during dragging.
-  final Widget Function(ReorderableStaggeredScrollViewListItem, Widget, Size)?
-      buildFeedback;
+  final Widget Function(ReorderableStaggeredScrollViewListItem, Widget, Size)? buildFeedback;
 
   /// The axis along which the items can be reordered.
   final Axis? axis;
 
   /// A callback when an item is accepted during a drag operation.
-  final void Function(ReorderableStaggeredScrollViewListItem?,
-      ReorderableStaggeredScrollViewListItem, bool)? onAccept;
+  final void Function(ReorderableStaggeredScrollViewListItem?, ReorderableStaggeredScrollViewListItem, bool, {AcceptDetails? acceptDetails})? onAccept;
 
   /// A callback to check if an item will be accepted during a drag operation.
-  final bool Function(ReorderableStaggeredScrollViewListItem?,
-      ReorderableStaggeredScrollViewListItem, bool)? onWillAccept;
+  final bool Function(ReorderableStaggeredScrollViewListItem?, ReorderableStaggeredScrollViewListItem, bool, {AcceptDetails? acceptDetails})? onWillAccept;
 
   /// A callback when an item leaves the target area during a drag operation.
-  final void Function(ReorderableStaggeredScrollViewListItem?,
-      ReorderableStaggeredScrollViewListItem, bool)? onLeave;
+  final void Function(ReorderableStaggeredScrollViewListItem?, ReorderableStaggeredScrollViewListItem, bool)? onLeave;
 
   /// A callback that is called when an item is moved during a drag operation.
-  final void Function(ReorderableStaggeredScrollViewListItem,
-      DragTargetDetails<ReorderableStaggeredScrollViewListItem>, bool)? onMove;
+  final void Function(ReorderableStaggeredScrollViewListItem, DragTargetDetails<ReorderableStaggeredScrollViewListItem>, bool)? onMove;
 
   /// The hit test behavior for draggable items.
   final HitTestBehavior hitTestBehavior;
@@ -159,16 +144,13 @@ class ReorderableStaggeredScrollView extends StatefulWidget {
   final void Function(ReorderableStaggeredScrollViewListItem)? onDragStarted;
 
   /// A callback called when an item is being dragged and updated.
-  final void Function(
-      DragUpdateDetails, ReorderableStaggeredScrollViewListItem)? onDragUpdate;
+  final void Function(DragUpdateDetails, ReorderableStaggeredScrollViewListItem)? onDragUpdate;
 
   /// A callback called when a draggable item is canceled.
-  final void Function(Velocity, Offset, ReorderableStaggeredScrollViewListItem)?
-      onDraggableCanceled;
+  final void Function(Velocity, Offset, ReorderableStaggeredScrollViewListItem)? onDraggableCanceled;
 
   /// A callback called when a drag operation ends.
-  final void Function(DraggableDetails, ReorderableStaggeredScrollViewListItem)?
-      onDragEnd;
+  final void Function(DraggableDetails, ReorderableStaggeredScrollViewListItem)? onDragEnd;
 
   /// A callback called when a drag operation is completed.
   final void Function(ReorderableStaggeredScrollViewListItem)? onDragCompleted;
@@ -290,27 +272,15 @@ class ReorderableStaggeredScrollView extends StatefulWidget {
     this.hitTestBehavior = HitTestBehavior.translucent,
 
     /// A function that builds the feedback widget during dragging.
-    Widget Function(ReorderableStaggeredScrollViewGridItem, Widget, Size)?
-        buildFeedback,
-    void Function(ReorderableStaggeredScrollViewGridItem?,
-            ReorderableStaggeredScrollViewGridItem, bool)?
-        onAccept,
-    bool Function(ReorderableStaggeredScrollViewGridItem?,
-            ReorderableStaggeredScrollViewGridItem, bool)?
-        onWillAccept,
-    void Function(ReorderableStaggeredScrollViewGridItem?,
-            ReorderableStaggeredScrollViewGridItem, bool)?
-        onLeave,
-    void Function(ReorderableStaggeredScrollViewGridItem,
-            DragTargetDetails<ReorderableStaggeredScrollViewGridItem>, bool)?
-        onMove,
+    Widget Function(ReorderableStaggeredScrollViewGridItem, Widget, Size)? buildFeedback,
+    void Function(ReorderableStaggeredScrollViewGridItem?, ReorderableStaggeredScrollViewGridItem, bool, {AcceptDetails? acceptDetails})? onAccept,
+    bool Function(ReorderableStaggeredScrollViewGridItem?, ReorderableStaggeredScrollViewGridItem, bool, {AcceptDetails? acceptDetails})? onWillAccept,
+    void Function(ReorderableStaggeredScrollViewGridItem?, ReorderableStaggeredScrollViewGridItem, bool)? onLeave,
+    void Function(ReorderableStaggeredScrollViewGridItem, DragTargetDetails<ReorderableStaggeredScrollViewGridItem>, bool)? onMove,
     void Function(ReorderableStaggeredScrollViewGridItem)? onDragStarted,
-    void Function(DragUpdateDetails, ReorderableStaggeredScrollViewGridItem)?
-        onDragUpdate,
-    void Function(Velocity, Offset, ReorderableStaggeredScrollViewGridItem)?
-        onDraggableCanceled,
-    void Function(DraggableDetails, ReorderableStaggeredScrollViewGridItem)?
-        onDragEnd,
+    void Function(DragUpdateDetails, ReorderableStaggeredScrollViewGridItem)? onDragUpdate,
+    void Function(Velocity, Offset, ReorderableStaggeredScrollViewGridItem)? onDraggableCanceled,
+    void Function(DraggableDetails, ReorderableStaggeredScrollViewGridItem)? onDragEnd,
     void Function(ReorderableStaggeredScrollViewGridItem)? onDragCompleted,
     this.scrollController,
     this.isDragNotification = false,
@@ -322,97 +292,66 @@ class ReorderableStaggeredScrollView extends StatefulWidget {
         shrinkWrap = false,
         buildFeedback = (buildFeedback == null
             ? null
-            : (ReorderableStaggeredScrollViewListItem item, Widget widget,
-                    Size size) =>
-                buildFeedback(
+            : (ReorderableStaggeredScrollViewListItem item, Widget widget, Size size) => buildFeedback(
                   item as ReorderableStaggeredScrollViewGridItem,
                   widget,
                   size,
                 )),
         onAccept = (onAccept == null
             ? null
-            : (ReorderableStaggeredScrollViewListItem? item1,
-                    ReorderableStaggeredScrollViewListItem? item2,
-                    bool value) =>
-                onAccept(
+            : (ReorderableStaggeredScrollViewListItem? item1, ReorderableStaggeredScrollViewListItem? item2, bool value, {AcceptDetails? acceptDetails}) => onAccept(
                   item1 as ReorderableStaggeredScrollViewGridItem?,
                   item2 as ReorderableStaggeredScrollViewGridItem,
                   value,
+                  acceptDetails: acceptDetails,
                 )),
         onLeave = (onLeave == null
             ? null
-            : (ReorderableStaggeredScrollViewListItem? item1,
-                    ReorderableStaggeredScrollViewListItem? item2,
-                    bool value) =>
-                onLeave(
+            : (ReorderableStaggeredScrollViewListItem? item1, ReorderableStaggeredScrollViewListItem? item2, bool value) => onLeave(
                   item1 as ReorderableStaggeredScrollViewGridItem?,
                   item2 as ReorderableStaggeredScrollViewGridItem,
                   value,
                 )),
         onWillAccept = (onWillAccept == null
             ? null
-            : (ReorderableStaggeredScrollViewListItem? item1,
-                    ReorderableStaggeredScrollViewListItem? item2,
-                    bool value) =>
-                onWillAccept(
+            : (ReorderableStaggeredScrollViewListItem? item1, ReorderableStaggeredScrollViewListItem? item2, bool value, {AcceptDetails? acceptDetails}) => onWillAccept(
                   item1 as ReorderableStaggeredScrollViewGridItem?,
                   item2 as ReorderableStaggeredScrollViewGridItem,
                   value,
+                  acceptDetails: acceptDetails,
                 )),
         onMove = (onMove == null
             ? null
-            : (ReorderableStaggeredScrollViewListItem item,
-                    DragTargetDetails<ReorderableStaggeredScrollViewListItem>
-                        details,
-                    bool value) =>
-                onMove(
+            : (ReorderableStaggeredScrollViewListItem item, DragTargetDetails<ReorderableStaggeredScrollViewListItem> details, bool value) => onMove(
                   item as ReorderableStaggeredScrollViewGridItem,
                   DragTargetDetails<ReorderableStaggeredScrollViewGridItem>(
-                    data:
-                        details.data as ReorderableStaggeredScrollViewGridItem,
+                    data: details.data as ReorderableStaggeredScrollViewGridItem,
                     offset: details.offset,
                   ),
                   value,
                 )),
-        onDragStarted = (onDragStarted == null
-            ? null
-            : (ReorderableStaggeredScrollViewListItem item) =>
-                onDragStarted(item as ReorderableStaggeredScrollViewGridItem)),
+        onDragStarted = (onDragStarted == null ? null : (ReorderableStaggeredScrollViewListItem item) => onDragStarted(item as ReorderableStaggeredScrollViewGridItem)),
         onDragUpdate = (onDragUpdate == null
             ? null
-            : (DragUpdateDetails details,
-                    ReorderableStaggeredScrollViewListItem item) =>
-                onDragUpdate(
+            : (DragUpdateDetails details, ReorderableStaggeredScrollViewListItem item) => onDragUpdate(
                   details,
                   item as ReorderableStaggeredScrollViewGridItem,
                 )),
         onDraggableCanceled = (onDraggableCanceled == null
             ? null
-            : (Velocity velocity, Offset offset,
-                    ReorderableStaggeredScrollViewListItem item) =>
-                onDraggableCanceled(
+            : (Velocity velocity, Offset offset, ReorderableStaggeredScrollViewListItem item) => onDraggableCanceled(
                   velocity,
                   offset,
                   item as ReorderableStaggeredScrollViewGridItem,
                 )),
-        onDragEnd = (onDragEnd == null
-            ? null
-            : (DraggableDetails details,
-                    ReorderableStaggeredScrollViewListItem item) =>
-                onDragEnd(
-                    details, item as ReorderableStaggeredScrollViewGridItem)),
-        onDragCompleted = (onDragCompleted == null
-            ? null
-            : (ReorderableStaggeredScrollViewListItem item) => onDragCompleted(
-                item as ReorderableStaggeredScrollViewGridItem));
+        onDragEnd = (onDragEnd == null ? null : (DraggableDetails details, ReorderableStaggeredScrollViewListItem item) => onDragEnd(details, item as ReorderableStaggeredScrollViewGridItem)),
+        onDragCompleted = (onDragCompleted == null ? null : (ReorderableStaggeredScrollViewListItem item) => onDragCompleted(item as ReorderableStaggeredScrollViewGridItem));
 
   @override
-  State<ReorderableStaggeredScrollView> createState() =>
-      _ReorderableStaggeredScrollViewState();
+  State<ReorderableStaggeredScrollView> createState() => _ReorderableStaggeredScrollViewState();
 }
 
-class _ReorderableStaggeredScrollViewState
-    extends State<ReorderableStaggeredScrollView> {
+class _ReorderableStaggeredScrollViewState extends State<ReorderableStaggeredScrollView> {
   List<ReorderableStaggeredScrollViewListItem> _children = const [];
 
   @override
@@ -448,8 +387,7 @@ class _ReorderableStaggeredScrollViewState
       edgeScroll: widget.edgeScroll,
       edgeScrollSpeedMilliseconds: widget.edgeScrollSpeedMilliseconds,
       isNotDragList: widget.isNotDragList,
-      items: (ReorderableStaggeredScrollViewListItem element,
-          DraggableWidget draggableWidget) {
+      items: (ReorderableStaggeredScrollViewListItem element, DraggableWidget draggableWidget) {
         if (widget.isList) {
           return Container(
             key: ValueKey(element.key.toString()),
